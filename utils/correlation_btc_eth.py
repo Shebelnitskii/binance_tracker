@@ -6,10 +6,16 @@ from utils.data_eth import load_data_eth
 
 
 def correlation_btc_eth():
+    """
+    Функция которая считывает данные по ETH и BTC производит карреляцию, объеденение и подсчёт процентного
+    изменения валюты, сохраняя в отдельный json файл
+    """
+    # Вызываем функцию load_data_btc для загрузки исторических данных в json файл
     load_data_btc()
     with open('utils/data/data_btc.json', 'r') as file:
         btcusdt_data = json.load(file)
 
+    # Вызываем функцию load_data_eth для загрузки исторических данных в json файл
     load_data_eth()
     with open('utils/data/data_eth.json', 'r') as file:
         ethusdt_data = json.load(file)
@@ -22,7 +28,7 @@ def correlation_btc_eth():
     df_btcusdt = pd.DataFrame(data_btc)
     df_ethusdt = pd.DataFrame(data_eth)
 
-    # Объедините данные в один DataFrame по временной метке
+    # Объединяем данные в один DataFrame по временной метке
     df_merged = pd.merge(df_btcusdt, df_ethusdt, on="timestamp", suffixes=("_btcusdt", "_ethusdt"))
 
     correlation = df_merged["close_btcusdt"].corr(df_merged["close_ethusdt"])
@@ -30,7 +36,7 @@ def correlation_btc_eth():
 
     df_merged['datetime'] = pd.to_datetime(df_merged['timestamp'], unit='ms')
 
-    # Установите 'datetime' в качестве индекса
+    # Установливаем datetime в качестве индекса
     df_merged.set_index('datetime', inplace=True)
 
     # Преобразуем столбцы 'close_btcusdt' и 'close_ethusdt' в числа
@@ -50,5 +56,6 @@ def correlation_btc_eth():
     with open('utils/data/data_correlation.json', 'w') as json_file:
         json.dump(correlation_json, json_file, indent=4)
 
+    #Удаляем ненужные файлы
     os.remove('utils/data/data_btc.json')
     os.remove('utils/data/data_eth.json')

@@ -5,6 +5,10 @@ import json
 
 
 def load_data_btc():
+    """
+    Функция которая выгружает исторические данные с Binance
+    и сохраняет в json файл
+    """
     api_key = os.getenv("API_KEY")
     api_secret = os.getenv("API_SECRET_KEY")
 
