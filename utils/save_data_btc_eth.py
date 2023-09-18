@@ -5,11 +5,18 @@ from utils.data_btc import load_data_btc
 from utils.data_eth import load_data_eth
 
 
-def correlation_btc_eth():
+def save_changes_eth_btc():
     """
     Функция которая считывает данные по ETH и BTC производит карреляцию, объеденение и подсчёт процентного
     изменения валюты, сохраняя в отдельный json файл
     """
+    # Проверяем наличие файла data_correlation.json
+    if os.path.exists('utils/data/data_correlation.json'):
+        print("Данные по историческим данным уже существуют. Функция не будет выполнена.")
+        return
+    else:
+        print("Исторические данные не найдены! Идёт создание нового файла data_correlation.json")
+
     # Вызываем функцию load_data_btc для загрузки исторических данных в json файл
     load_data_btc()
     with open('utils/data/data_btc.json', 'r') as file:
@@ -30,9 +37,6 @@ def correlation_btc_eth():
 
     # Объединяем данные в один DataFrame по временной метке
     df_merged = pd.merge(df_btcusdt, df_ethusdt, on="timestamp", suffixes=("_btcusdt", "_ethusdt"))
-
-    correlation = df_merged["close_btcusdt"].corr(df_merged["close_ethusdt"])
-    print(f"Корреляция между BTCUSDT и ETHUSDT: {correlation}")
 
     df_merged['datetime'] = pd.to_datetime(df_merged['timestamp'], unit='ms')
 
