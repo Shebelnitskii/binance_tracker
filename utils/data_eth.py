@@ -16,8 +16,8 @@ def load_data_eth():
 
     symbol = 'ETHUSDT'  # Валютная пара, данные которой интересуют нас
     interval = Client.KLINE_INTERVAL_1DAY  # Интервал времени
-    start_time = "2022-01-01"  # Начальная дата и время в формате 'ГГГГ-ММ-ДД'
-    end_time = "2023-08-30"  # Конечная дата и время в формате 'ГГГГ-ММ-ДД'
+    start_time = "2023-01-01"  # Начальная дата и время в формате 'ГГГГ-ММ-ДД'
+    end_time = "2023-09-30"  # Конечная дата и время в формате 'ГГГГ-ММ-ДД'
 
     # Получение исторических данных
     historical_data = client.get_historical_klines(symbol, interval, start_time, end_time)
