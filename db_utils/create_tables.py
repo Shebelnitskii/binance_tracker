@@ -6,24 +6,26 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 from db_utils.connect_db import connect_db
 
+# Создание базового класса для объявления моделей таблиц
+Base = declarative_base()
+
+
+# Определение моделей таблицы для ETH и BTC
+class BinanceData(Base):
+    __tablename__ = 'binance_data'
+
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(DateTime, unique=True)
+    price_ethusdt = Column(Float)
+    price_btcusdt = Column(Float)
+    change_ethusdt = Column(Float, nullable=True)
+    change_btcusdt = Column(Float, nullable=True)
+
 
 def create_tables():
     try:
         # Создание подключения к базе данных
         engine, connection = connect_db()
-        # Создание базового класса для объявления моделей таблиц
-        Base = declarative_base()
-
-        # Определение моделей таблицы для ETH и BTC
-        class BinanceData(Base):
-            __tablename__ = 'binance_data'
-
-            id = Column(Integer, primary_key=True)
-            timestamp = Column(DateTime, unique=True)
-            price_ethusdt = Column(Float)
-            price_btcusdt = Column(Float)
-            change_ethusdt = Column(Float, nullable=True)
-            change_btcusdt = Column(Float, nullable=True)
 
         # Создание таблиц в базе данных (если они ещё не существуют)
         Base.metadata.create_all(engine)
@@ -64,3 +66,26 @@ def create_tables():
         print(f"Ошибка при подключении к базе данных: {str(e)}")
 
 
+def new_data(timestamp, data_btc, data_eth, change_btc, change_eth):
+    # Создание подключения к базе данных
+    engine, connection = connect_db()
+
+    # Создание сессии для добавления новых данных в БД
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    binance_data = BinanceData(
+        timestamp=timestamp,
+        price_btcusdt=data_btc,
+        price_ethusdt=data_eth,
+        change_btcusdt=change_btc,
+        change_ethusdt=change_eth
+    )
+
+    session.add(binance_data)
+
+    # Сохранение изменений
+    session.commit()
+
+    # Закрытие сессии
+    session.close()
