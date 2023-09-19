@@ -10,12 +10,12 @@ def save_changes_eth_btc():
     Функция которая считывает данные по ETH и BTC производит карреляцию, объеденение и подсчёт процентного
     изменения валюты, сохраняя в отдельный json файл
     """
-    # Проверяем наличие файла data_correlation.json
-    if os.path.exists('utils/data/data_correlation.json'):
+    # Проверяем наличие файла historical_data.json
+    if os.path.exists('utils/data/historical_data.json'):
         print("Данные по историческим данным уже существуют. Функция не будет выполнена.")
         return
     else:
-        print("Исторические данные не найдены! Идёт создание нового файла data_correlation.json")
+        print("Исторические данные не найдены! Идёт создание нового файла historical_data.json")
 
     # Вызываем функцию load_data_btc для загрузки исторических данных в json файл
     load_data_btc()
@@ -57,7 +57,7 @@ def save_changes_eth_btc():
     correlation_json = df_merged.to_dict(orient='records')
 
     # Сохраняем JSON в файл
-    with open('utils/data/data_correlation.json', 'w') as json_file:
+    with open('utils/data/historical_data.json', 'w') as json_file:
         json.dump(correlation_json, json_file, indent=4)
 
     #Удаляем ненужные файлы
