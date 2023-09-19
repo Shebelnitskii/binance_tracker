@@ -35,7 +35,7 @@ def create_tables():
         session = Session()
 
         # Загрузка данных из JSON и сохранение их в базе данных
-        with open('C:/Users/shebel/PycharmProjects/binance_tracker/utils/data/data_correlation.json', 'r') as data_file:
+        with open('utils/data/historical_data.json', 'r') as data_file:
             data = json.load(data_file)
             for entry in data:
                 # Преобразование
