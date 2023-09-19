@@ -15,7 +15,7 @@ def load_data_btc():
     client = Client(api_key, api_secret)
 
     symbol = 'BTCUSDT'  # Валютная пара, данные которой интересуют нас
-    interval = Client.KLINE_INTERVAL_1DAY  # Интервал времени
+    interval = Client.KLINE_INTERVAL_12HOUR  # Интервал времени
     start_time = "2023-01-01"  # Начальная дата и время в формате 'ГГГГ-ММ-ДД'
     end_time = "2023-09-30"  # Конечная дата и время в формате 'ГГГГ-ММ-ДД'
 
