@@ -28,6 +28,8 @@ def connect_db():
     try:
         connection = engine.connect()
         print("Подключение к базе данных успешно установлено.")
+        print("-" * 35)
         return engine, connection
     except Exception as e:
         print(f"Ошибка при подключении к базе данных: {str(e)}")
+        print("-" * 35)
