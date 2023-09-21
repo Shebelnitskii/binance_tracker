@@ -12,10 +12,14 @@ def save_changes_eth_btc():
     """
     # Проверяем наличие файла historical_data.json
     if os.path.exists('utils/data/historical_data.json'):
+        print("-" * 35)
         print("Данные по историческим данным уже существуют. Функция не будет выполнена.")
+        print("-" * 35)
         return
     else:
+        print("-" * 35)
         print("Исторические данные не найдены! Идёт создание нового файла historical_data.json")
+        print("-" * 35)
 
     # Вызываем функцию load_data_btc для загрузки исторических данных в json файл
     load_data_btc()
