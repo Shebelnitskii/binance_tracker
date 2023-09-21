@@ -9,11 +9,11 @@ import time
 
 def user_interaction():
     """Основное тело программы"""
-    ### Проверка заполнености БД
+    # Проверка заполнености БД
     save_changes_eth_btc()
     create_tables()
     coef_btc_to_eth = load_coefficient_btc()
-    ### Начало цикла
+    # Начало цикла
     while True:
         time_now = datetime.now()
         initial_eth_price = get_eth_price()
@@ -34,6 +34,7 @@ def user_interaction():
                            initial_eth_price)
 
             time_difference = new_time - time_now
+
             # Проверяем, равна ли разница 1 часу
             if time_difference >= timedelta(hours=1):
                 print("В течении часа у ETHUSDT не было изменений на 1%\nДанные по ETH не будут сохранены в таблицу")

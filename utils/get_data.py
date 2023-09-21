@@ -1,5 +1,6 @@
 import requests
 
+
 def get_btc_price():
     symbol = 'BTCUSDT'
     url = f'https://api.binance.com/api/v3/ticker/price?symbol={symbol}'

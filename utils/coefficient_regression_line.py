@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import statsmodels.api as sm
 
+
 def load_coefficient_btc():
     # Загрузка данных из JSON-файла
     with open('utils/data/historical_data.json', 'r') as json_file:

@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def connect_db():
     # Получаем значения переменных окружения
     db_host = os.getenv('DB_HOST')
@@ -19,11 +20,8 @@ def connect_db():
     # Преобразуем порт в целое число (если он задан)
     if db_port is not None:
         db_port = int(db_port)
-
-
     # Создаем подключение к базе данных
     engine = create_engine(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
-
     # Проверяем подключение
     try:
         connection = engine.connect()

@@ -64,6 +64,6 @@ def save_changes_eth_btc():
     with open('utils/data/historical_data.json', 'w') as json_file:
         json.dump(correlation_json, json_file, indent=4)
 
-    #Удаляем ненужные файлы
+    # Удаляем ненужные файлы
     os.remove('utils/data/data_btc.json')
     os.remove('utils/data/data_eth.json')
