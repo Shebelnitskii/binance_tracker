@@ -23,6 +23,7 @@ class BinanceData(Base):
 
 
 def create_tables():
+    """Заполнение БД данными из historical_data.json"""
     try:
         # Создание подключения к базе данных
         engine, connection = connect_db()
@@ -43,7 +44,7 @@ def create_tables():
                 # Форматирование даты и времени в строку
                 formatted_datetime = timestamp_datetime.strftime("%Y-%m-%d %H:%M:%S")
                 try:
-                    # Проверяем json на наличие новых временных метод и данных, для добавления в таблицу
+                    # Проверяем json на наличие новых временных меток и данных, для добавления в таблицу
                     existing_data = session.query(BinanceData).filter_by(timestamp=formatted_datetime).one()
                 except NoResultFound:
                     # Если временной метки нет, то данные сохраняются в таблицу
@@ -67,6 +68,7 @@ def create_tables():
 
 
 def new_data(timestamp, data_btc, data_eth, change_btc, change_eth):
+    """Добавление новых данных  в БД"""
     # Создание подключения к базе данных
     engine, connection = connect_db()
 

@@ -11,11 +11,8 @@ def percent_change(coef_btc_to_eth, initial_btc_price, initial_eth_price, curren
     delta_eth_own = coef_btc_to_eth * delta_btc
     change_eth_without_coef = delta_eth - delta_eth_own
     percent_change_eth_dependent = (coef_btc_to_eth * delta_btc / initial_eth_price) * 100
-    percent_change_global_eth = ((current_eth_price - initial_eth_price) / initial_eth_price) * 100
-    percent_change_global_btc = ((current_btc_price - initial_btc_price) / initial_btc_price) * 100
 
-    return delta_btc, delta_eth, change_eth_without_coef, percent_change_eth_dependent, percent_change_global_btc, \
-           percent_change_global_eth
+    return delta_btc, delta_eth, change_eth_without_coef, percent_change_eth_dependent
 
 
 def print_results(delta_btc, delta_eth, change_eth_without_coef, percent_change_eth_dependent, current_btc_price,
@@ -39,7 +36,6 @@ def save_to_db(new_time, current_btc_price, current_eth_price, percent_change_bt
         new_data(new_time, current_btc_price, current_eth_price, percent_change_btc, percent_change_eth)
         print('Данные сохранены в БД')
         print("-" * 35)
-        return False
     except Exception as e:
         print(f"Ошибка при подключении к базе данных: {str(e)}")
         print("-" * 35)
