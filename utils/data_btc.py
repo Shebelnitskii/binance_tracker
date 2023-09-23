@@ -2,7 +2,9 @@ from binance import Client
 import pandas as pd
 import os
 import json
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def load_data_btc():
     """
